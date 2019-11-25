@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style type="text/css">
+.table table-bordered1{
+    text-align: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: 15%;
+}
+td{
+
+}
+</style>
+<div class="col-md-6">
+        <div id="schedule" style="text-align: center">
+            <h3>{{user.username}}</h3>
+        <script type="text/javascript">
+            function create_table() {
+                var table = document.createElement("table");
+                table.className = "table table-bordered";
+                var weeks = ["", "월", "화", "수", "목", "금", "토", "일"];
+
+                var first_tr = document.createElement("tr");
+                for (var i = 0; i < weeks.length; i++) {
+                    var td = document.createElement("td");
+                    td.innerText = weeks[i];
+                    first_tr.appendChild(td);
+                }
+                var thead = document.createElement("thead");
+                thead.appendChild(first_tr);
+
+                table.appendChild(thead);
+
+                var user_time_table = "{{ user.time_table }}";
+                var tbody = document.createElement("tbody");
+
+                for (var j = 0; j < 13; j++) {
+                    var tr = document.createElement("tr");
+                    var first_td = document.createElement("td");
+                    first_td.innerText = (j + 9) + "시";
+                    tr.appendChild(first_td);
+
+                    for (var k = 0; k < 7; k++) {
+                        var td = create_td(user_time_table[j * 7 + k]);
+                        td.id = j + ',' + k;
+                        tr.appendChild(td);
+                    }
+
+                    tbody.appendChild(tr);
+                }
+                table.appendChild(tbody);
+                table.style.textAlign = "center";
+                table.style.width = "85%";
+                table.style.height="100%";
+                table.style.margin = "auto";
+                table.style.fontcolor = "green";
+                var container = document.getElementById("schedule");
+                container.appendChild(table);
+            }
+
+            function create_td(binary) {
+                var td = document.createElement("td");
+                td.setAttribute("onclick", "change_color(this)");
+                if (binary == '1') {
+                    td.style.backgroundColor = "red";
+                }
+                return td
+            }
+
+
+            function get_binary() {
+                var td_tags = document.getElementsByTagName("td");
+                var result = "";
+
+                for (var i = 0; i < td_tags.length; i++) {
+                    if (td_tags[i].id != "") {
+                        if (td_tags[i].style.backgroundColor == "red") {
+                            result += 1;
+                        } else {
+                            result += 0;
+                        }
+                    }
+                }
+
+                return result;
+            }
+
+            create_table();
+        </script>
+    
+    </div>
+</div>
+    {% endblock %}

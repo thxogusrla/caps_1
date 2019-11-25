@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+#td_a{
+    color: black;
+}
+</style>
+<table>
+<tr>
+    {% for members in user_team.all %}
+    <td style="padding-left: 10px; padding-right: 15px;" id="td_a"><a href="{% url 'team_article:workspace' members.team.pk members.user.pk %}" style="color: black; font-size: 30px;">{{ members.user.username }}의 작업공간</a></td>
+    {% endfor %}
+    <td><a href="{% url 'team:detail_team' team.pk %}" style="color: rgb(0, 0, 0);">Team Home</a></td>
+</tr>
+</table>  
+
+{{ user.id }}
+{{ now_user.id }}
+{% if user.id == now_user.id %}
+<table>
+    <tr>
+        <td>
+            <form action="{% url 'team_article:articleurl' team.pk user.pk %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>
+                    {{ urlform.as_table }}
+                    <input type="submit" value="저장">
+                </table>
+            </form>
+        </td>
+        <td>
+            <form action="{% url 'team_article:articlefile' team.pk user.pk %}" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <table>
+                    {{ fileform.as_table }}
+                    <input type="submit" name="document"  value="저장">
+                </table>
+
+            </form>
+        </td>
+    </tr>
+</table>
+{% endif %}
+<h1>주소가 모인 게시판</h1>
+{% for i in search_url.all %}
+ 주소: <a href="{{ i.url }}" target="_blank">{{ i.url }}</a> <br>
+설명:{{ i.explain_content}}
+{{i.created_date }}
+{% if user.id == now_user.id %}
+<a href="{% url 'team_article:delete_articleurl' team.pk user.pk i.pk %}">삭제</a>
+{% endif %}
+<br><br><br>
+{% endfor %}
+
+<h1>파일이 모인 게시판</h1>
+{% for i in search_file.all %}
+파일 아이디={{i.id}}
+<br>
+<a href="{{ i.file_url.url }}" download>{{ i.file_url }}</a>
+{% if user.id == now_user.id %}
+<a href="{% url 'team_article:delete_articlefile' team.pk user.pk i.pk %}">삭제</a>
+{% endif %}
+<br>
+설명: {{i.explain_content}}
+<br>
+{% endfor %}
+{% endblock%}

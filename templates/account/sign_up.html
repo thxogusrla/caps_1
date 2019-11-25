@@ -1,8 +1,33 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-    <div id="sign-up-container" class="container">
-        <h2>회원가입</h2>
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>TeamPleProject</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+        Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <link href="{% static  'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all">
+        <!-- Custom Theme files -->
+        <link href="{% static  'css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+        <!--js-->
+        <script src="{% static  'js/jquery-2.1.1.min.js'%} " ></script> 
+        <!--icons-css-->
+        <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet"> 
+        <!--Google Fonts-->
+        <link href='//fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+        <!--static chart-->
+        </head>
+<body>	
+    <div class="signup-page-main">
+        <div class="signup-main">  	
+            <div class="signup-head">
+                   <h1>Sign Up</h1>
+               </div>
+               <div class="signup-block">
         <form id="sign-up-form" method="post">
             {% csrf_token %}
             <div class="form-group">
@@ -39,7 +64,17 @@
             </div>
         </form>
         <button type="input" class="btn btn-secondary btn-lg" onclick="check_account()">회원가입</button>
+        <div class="sign-down">
+				<h4>Already have an account? <a href="{% url 'account:sign_in' %}"> Login here.</a></h4>
+				</div>
     </div>
+    </div>
+    </div>
+    <script src="{% static 'js/jquery.nicescroll.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <!--//scrolling js-->
+<script src="{% static 'js/bootstrap.js' %}"> </script>
+    </body>
 
 
     <script type="text/javascript">
@@ -59,4 +94,3 @@
             }
         }
     </script>
-{% endblock %}

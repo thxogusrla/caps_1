@@ -5,6 +5,7 @@
         <h2>시간표 설정</h2>
         <script type="text/javascript">
             function create_table() {
+                var username = "{{user.username}}";
                 var table = document.createElement("table");
                 table.className = "table table-bordered";
                 var weeks = ["", "월", "화", "수", "목", "금", "토", "일"];
@@ -30,7 +31,7 @@
                     tr.appendChild(first_td);
 
                     for (var k = 0; k < 7; k++) {
-                        var td = create_td(user_time_table[j * 7 + k]);
+                        var td = create_td(user_time_table[j * 7 + k]); // 1차원배열을 2차원 배열로 만들어준거지뭐.
                         td.id = j + ',' + k;
                         tr.appendChild(td);
                     }
@@ -50,6 +51,7 @@
                 var td = document.createElement("td");
                 td.setAttribute("onclick", "change_color(this)");
                 if (binary == '1') {
+                    td.innerText = "{{ user.username }}";
                     td.style.backgroundColor = "red";
                 }
                 return td

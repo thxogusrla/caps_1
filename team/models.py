@@ -31,6 +31,13 @@ class TeamMember(models.Model):
             self.team.id ,
             self.user.username,
             )
-
+class TeamTimeTable(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_time_table = models.CharField(default=('0' * 91), max_length=91)
+    
+    def __str__(self):
+        return self.total_time_table
+        
 # class TeamLeader(models.Model):
 #     team_leder = models.OneToOneField(TeamMember, on_delete=models.SET_NULL, null=True)

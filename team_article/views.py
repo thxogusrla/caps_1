@@ -9,6 +9,7 @@ from django.utils import timezone
 def workspace(request, team_pk, user_pk):
     team = get_object_or_404(Team, pk=team_pk) #팀에 대한 정보를 가져오고
     user = get_object_or_404(User, pk=user_pk) #사용자에 대한 정보를 가져오고
+    member = TeamMember.objects.filter(team=team)
     now_user = request.user    
     urlform = ArticleUrlForm()
     fileform = ArticleFileForm()
@@ -23,6 +24,7 @@ def workspace(request, team_pk, user_pk):
         'urlform':urlform,
         'fileform':fileform,
         'now_user':now_user,
+        'user_team':member,
         # 'ur':ur,
         })
 

@@ -1,0 +1,234 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+<style type="text/css">
+.blank{
+    padding-top: 100px;
+
+}
+.table table-bordered1{
+    text-align: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: 15%;
+}
+
+.target {
+    white-space: pre;
+}
+td{
+    padding: 0px;
+}
+</style>
+
+            {% for i in user_team.all %}
+        <script>
+
+        $( function () {
+            var a = "{{i.total_time_table}}";
+            var user_name = "{{i.user.username}}";
+            let count = 0;
+
+            for (let i = 0; i < 13; i++) {   
+                for (let j = 0; j < 7; j++) {
+                    if(a.charAt(count) == 0){
+                       
+                        $('#'+i+j).text( user_name+"\n"+$('#'+i+j).text());
+                    }
+                    count++;
+                }
+            }
+        });
+        </script>
+            {% endfor %}
+        <p style="text-align: center; font-size: 30px;"><a href="{% url 'team:detail_team' team.pk%}"> Team member_time_table</p></a>
+<table class="table table-bordered1" style="text-align: center; width: 85%; margin: auto;  white-space: pre; margin-top: 30px; padding: 0px;"    >
+    <thead>
+        <tr>
+            <td></td>
+            <td>월</td>
+            <td>화</td>
+            <td>수</td>
+            <td>목</td>
+            <td>금</td>
+            <td>토</td>
+            <td>일</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>9시</td>
+            <td onclick="change_color(this)" id="00" ></td> 
+            <td onclick="change_color(this)" id="01" ></td>
+            <td onclick="change_color(this)" id="02"></td>
+            <td onclick="change_color(this)" id="03"></td>
+            <td onclick="change_color(this)" id="04">
+            </td>
+            <td onclick="change_color(this)" id="05"></td>
+            <td onclick="change_color(this)" id="06"></td>
+        </tr>
+        <tr>
+            <td>10시</td>
+            <td onclick="change_color(this)" id="10">
+            </td>
+            <td onclick="change_color(this)" id="11"></td>
+            <td onclick="change_color(this)" id="12"></td>
+            <td onclick="change_color(this)" id="13">
+            </td>
+            <td onclick="change_color(this)" id="14"></td>
+            <td onclick="change_color(this)" id="15"></td>
+            <td onclick="change_color(this)" id="16"></td>
+        </tr>
+        <tr>
+            <td>11시</td>
+            <td onclick="change_color(this)" id="20">
+            </td>
+            <td onclick="change_color(this)" id="21">
+            </td>
+            <td onclick="change_color(this)" id="22">
+            </td>
+            <td onclick="change_color(this)" id="23"></td>
+            <td onclick="change_color(this)" id="24"></td>
+            <td onclick="change_color(this)" id="25">
+            </td>
+            <td onclick="change_color(this)" id="26"></td>
+        </tr>
+        <tr>
+            <td>12시</td>
+            <td onclick="change_color(this)" id="30">
+            </td>
+            <td onclick="change_color(this)" id="31"></td>
+            <td onclick="change_color(this)" id="32">
+            </td>
+            <td onclick="change_color(this)" id="33"></td>
+            <td onclick="change_color(this)" id="34">
+            </td>
+            <td onclick="change_color(this)" id="35"></td>
+            <td onclick="change_color(this)" id="36"></td>
+        </tr>
+        <tr>
+            <td>13시</td>
+            <td onclick="change_color(this)" id="40"></td>
+            <td onclick="change_color(this)" id="41"></td>
+            <td onclick="change_color(this)" id="42"></td>
+            <td onclick="change_color(this)" id="43">
+            </td>
+            <td onclick="change_color(this)" id="44"></td>
+            <td onclick="change_color(this)" id="45"></td>
+            <td onclick="change_color(this)" id="46">
+            </td>
+        </tr>
+        <tr>
+            <td>14시</td>
+            <td onclick="change_color(this)" id="50">
+            </td>
+            <td onclick="change_color(this)" id="51">
+            </td>
+            <td onclick="change_color(this)" id="52"></td>
+            <td onclick="change_color(this)" id="53"></td>
+            <td onclick="change_color(this)" id="54"></td>
+            <td onclick="change_color(this)" id="55"></td>
+            <td onclick="change_color(this)" id="56"></td>
+        </tr>
+        <tr>
+            <td>15시</td>
+            <td onclick="change_color(this)" id="60"></td>
+            <td onclick="change_color(this)" id="61"></td>
+            <td onclick="change_color(this)" id="62"></td>
+            <td onclick="change_color(this)" id="63">
+            </td>
+            <td onclick="change_color(this)" id="64"></td>
+            <td onclick="change_color(this)" id="65">
+            </td>
+            <td onclick="change_color(this)" id="66">
+            </td>
+        </tr>
+        <tr>
+            <td>16시</td>
+            <td onclick="change_color(this)" id="70"></td>
+            <td onclick="change_color(this)" id="71">
+            </td>
+            <td onclick="change_color(this)" id="72"></td>
+            <td onclick="change_color(this)" id="73"></td>
+            <td onclick="change_color(this)" id="74"></td>
+            <td onclick="change_color(this)" id="75"></td>
+            <td onclick="change_color(this)" id="76"></td>
+        </tr>
+        <tr>
+            <td>17시</td>
+            <td onclick="change_color(this)" id="80"></td>
+            <td onclick="change_color(this)" id="81"></td>
+            <td onclick="change_color(this)" id="82"></td>
+            <td onclick="change_color(this)" id="83"></td>
+            <td onclick="change_color(this)" id="84"></td>
+            <td onclick="change_color(this)" id="85">
+            </td>
+            <td onclick="change_color(this)" id="86">
+            </td>
+        </tr>
+        <tr>
+            <td>18시</td>
+            <td onclick="change_color(this)" id="90">
+            </td
+            <td onclick="change_color(this)" id="91"></td>
+            <td onclick="change_color(this)" id="92"></td>
+            <td onclick="change_color(this)" id="93">
+            </td>
+            <td onclick="change_color(this)" id="94"></td>
+            <td onclick="change_color(this)" id="95"></td>
+            <td onclick="change_color(this)" id="96"></td>
+        </tr>
+        <tr>
+            <td>19시</td>
+            <td onclick="change_color(this)" id="100"></td>
+            <td onclick="change_color(this)" id="101">
+            </td>
+            <td onclick="change_color(this)" id="102"></td>
+            <td onclick="change_color(this)" id="103"></td>
+            <td onclick="change_color(this)" id="104"></td>
+            <td onclick="change_color(this)" id="105">
+            </td>
+            <td onclick="change_color(this)" id="106"></td>
+        </tr>
+        <tr>
+            <td>20시</td>
+            <td onclick="change_color(this)" id="110">
+            </td>
+            <td onclick="change_color(this)" id="111"></td>
+            <td onclick="change_color(this)" id="112"></td>
+            <td onclick="change_color(this)" id="113"></td>
+            <td onclick="change_color(this)" id="114"></td>
+            <td onclick="change_color(this)" id="115"></td>
+            <td onclick="change_color(this)" id="116"></td>
+        </tr>
+        <tr>
+            <td>21시</td>
+            <td onclick="change_color(this)" id="120"></td>
+            <td onclick="change_color(this)" id="121"></td>
+            <td onclick="change_color(this)" id="122"></td>
+            <td onclick="change_color(this)" id="123"></td>
+            <td onclick="change_color(this)" id="124">
+            </td>
+            <td onclick="change_color(this)" id="125">
+            </td>
+            <td onclick="change_color(this)" id="126"></td>
+        </tr>
+    </tbody>
+</table>
+
+</a>
+
+
+{% endblock %}
+
+
+</a>
+
+
+
+
+                    

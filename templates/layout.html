@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>U임승차</title>
+    <title>Teample</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -20,6 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+    
     <!--//skycons-icons-->
     {#    프로젝트 css#}
     <link rel="stylesheet" href="{% static 'account/sign_in.css' %}">
@@ -33,7 +34,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="header-main">
                 <div class="header-left">
                     <div class="logo-name">
-                        <a href="{% url 'main:home' %}"> <h1>U임승차</h1>
+                        <a href="{% url 'account:user_home' user.pk %}"> <h1>Teample</h1>
                             <!--<img id="logo" src="" alt="Logo"/>-->
                         </a>
                     </div>
@@ -241,7 +242,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </script>
             <!-- /script-for sticky-nav -->
             <!--inner block start here-->
-            <div class="inner-block">
+            <div class="inner-block" style="background:#f1f1f1; padding: 2em 2em 4em 2em;">
                 <div class="blank">
                     {% block content %}
                     {% endblock %}
@@ -249,43 +250,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </div>
             <!--inner block end here-->
             <!--copy rights start here-->
-            <div class="copyrights">
-                <p>© 2016 Shoppy. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-            </div>
+
             <!--COPY rights end here-->
         </div>
     </div>
     <!--slider menu-->
-    <div class="sidebar-menu">
-        <div class="logo"> <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="#"> <span id="logo" ></span>
-            <!--<img id="logo" src="" alt="Logo"/>-->
-        </a> </div>
+    <div class="sidebar-menu" style="background-color: #4e5050; " >
+
         <div class="menu">
             <ul id="menu" >
-                <li id="menu-home" ><a href="index.html"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
-                <li><a href="#"><i class="fa fa-cogs"></i><span>Components</span><span class="fa fa-angle-right" style="float: right"></span></a>
-                    <ul>
-                        <li><a href="grids.html">Grids</a></li>
-                        <li><a href="portlet.html">Portlets</a></li>
-                    </ul>
+                <li id="menu-home" ><a href="{% url 'account:user_home' user.pk %}" ><i class="glyphicon glyphicon-home" aria-hidden="true" style="color: white;"></i><span>home</span></a></li>
+                <li><a href="{% url 'team:create_team' %}"><i class="glyphicon glyphicon-plus" aria-hidden="true" style="color: white;"></i><span>Create Team!</span></a>
                 </li>
-                <li id="menu-comunicacao" ><a href="#"><i class="fa fa-book nav_icon"></i><span>Element</span><span class="fa fa-angle-right" style="float: right"></span></a>
+                <li id="menu-comunicacao" ><a href="#"><i class="glyphicon glyphicon-th-list" aria-hidden="true" style="color: white;"></i><span>팀 목록</span><span class="fa fa-angle-right" style="float: right"></span></a>
                     <ul id="menu-comunicacao-sub" >
-                        <li id="menu-mensagens" style="width: 120px" ><a href="buttons.html">Buttons</a>
-                        </li>
-                        <li id="menu-arquivos" ><a href="typography.html">Typography</a></li>
-                        <li id="menu-arquivos" ><a href="icons.html">Icons</a></li>
-                    </ul>
-                </li>
-                <li><a href="maps.html"><i class="fa fa-map-marker"></i><span>Maps</span></a></li>
-                <li id="menu-academico" ><a href="#"><i class="fa fa-file-text"></i><span>Pages</span><span class="fa fa-angle-right" style="float: right"></span></a>
-                    <ul id="menu-academico-sub" >
-                        <li id="menu-academico-boletim" ><a href="login.html">Login</a></li>
-                        <li id="menu-academico-avaliacoes" ><a href="signup.html">Sign Up</a></li>
-                    </ul>
-                </li>
+                        {% for userteam in user_team %}
+                        <li id="menu-mensagens" style="width: 120px" ><a href="{% url 'team:detail_team' userteam.team.id %}">{{userteam.team.team_name}}</a></li>
+                        {% endfor %}
 
-                <li><a href="charts.html"><i class="fa fa-bar-chart"></i><span>Charts</span></a></li>
+                    </ul>
+                </li>
+                
                 {% if user.is_active %}
                 <li><a href="{% url 'mail:mailbox' user.id %}"><i class="fa fa-envelope"></i><span>Mailbox</span><span class="fa fa-angle-right" style="float: right"></span></a>
                     <ul id="menu-academico-sub" >

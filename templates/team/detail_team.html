@@ -1,0 +1,136 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style type="text/css">
+.subnav{
+padding: 0px 40px;
+}
+</style>
+<script type="text/javascript">
+function team_leave(team_pk, user_pk){
+    var leave_team = confirm("팀을 나가시겠습니까?")
+    if (leave_team == true){
+        location.href = '/team/'+team_pk+'/'+user_pk+'/'+'leave_team';
+    }
+    else
+        return ;
+}
+function team_invite(team_pk){
+    var member = prompt("초대할 사용자를 입력해 주세요!")
+    if (member != null){
+        $.ajax({
+            url: 'team'
+        })
+    }
+}
+function team_time_add(team_pk){
+    var add_time_table = confirm("팀에 시간표를 추가하시겠습니까?")
+    if (add_time_table == true ){
+        alert("시간표가 성공적으로 추가되었습니다!")
+        location.href = '/team/'+team_pk+'/'+'add_time_table';
+    }
+}
+// function team_time_add(team_pk){
+//     var add_time_table = confirm("팀에 시간표를 추가하시겠습니까?")
+//     if (add_time_table == true ){
+//         $.ajax({
+//             url: '/team/'+team_pk+'/'+'add_time_table',
+//             success: function(data){
+//                 if (data === 1){
+//                     alert("이미 추가된 시간표 입니다!")
+//                 }
+//                 else if(data === 2){
+//                     alert("시간표가 성공적으로 추가 되었습니다")
+//                     location.href = '/team/detail_team/'+team_pk;
+//                 }
+//             },
+//             error: function(){
+//                 console.log('실패');
+//             }
+//         })
+//     }
+//     else return;
+// }
+function delete_team_timetable(team_pk, user_pk){
+    var leave_team = confirm("팀에 추가된 시간표를 삭제하시겠습니까?")
+    if (leave_team == true){
+        alert("시간표가 성공적으로 삭제 되었습니다!")
+        location.href = '/team/'+team_pk+'/delete_time_table';
+    }
+    else{
+        return ;
+    }
+}
+</script>
+<table>
+<tr>
+        <td style="padding-left: 15px; padding-right: 15px;"><a href=" {% url 'account:user_home' login_user.pk %}">{{login_user.username}}</a></td>
+        <td style="padding-left: 15px; padding-right: 15px;"> <a onclick="team_leave('{{details.pk}}', '{{login_user.pk}}')">팀 탈퇴</a></td>
+        <!-- <a href=" {% url 'team:leave_team' details.pk login_user.pk %}">팀 나가기!</a> -->
+        <td style="padding-left: 15px; padding-right: 15px;">  <a href="{% url 'team:add_member' details.pk %}">팀 추가</a></td>
+        <td style="padding-left: 15px; padding-right: 15px;">  <a onclick="team_time_add('{{ details.pk }}')">내 시간표 추가</a></td>
+        <td style="padding-left: 15px; padding-right: 15px;">  <a onclick="delete_team_timetable('{{ details.pk }}')">내 시간표 삭제</a></td>
+        <td style="padding-left: 15px; padding-right: 15px;"><a href="{% url 'team:member_time_table' details.pk %}">합친 팀 시간표</a></td>
+</tr>
+</table>
+        <hr>
+        <h1>
+            팀 이름={{ details.team_name }}
+        </h1>
+        {% for i in details.team_leader.all %}
+            팀 리더={{ i.username }}
+            {{ details.team_leader.all }}
+            <br>
+            팀 리더 번호= {{i.pk}}
+        {% endfor %}
+        <br>
+       
+        <br>
+        팀 소개={{ details.introduce }}
+        <br>
+        팀 유저
+        <br>
+        {% for i in team_member.all %}
+            <p>
+                {% for k in details.team_leader.all %}
+                    <a href="{% url 'account:user_info'  i.user.id %}">{{ i.user.username }}</a>
+
+                    {#{% if user.username == k.username %}#}
+                    {#  {% if i.user.id != k.id %}#}
+                    {#  {% if i.user.id != k.id %}#}
+                    {#      <a href="{% url 'team:expulsion_member' i.team.id i.user.id %}">추방</a>#}
+                    {#  {% endif %}#}
+                    {#{% endif %}#}
+
+                    {% if i.user.id == k.id %}
+                        리더입니다~!
+                    {% endif %}
+                    {{ i.user.time_table }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+        <h2>팀원 별 작업공간!</h2>
+        {% for i in team_member.all %}
+            <a href="{% url 'team_article:workspace' i.team.pk i.user.pk %}">{{ i.user.username }}</a>
+        {% endfor %}
+        <br>
+        <h2>팀 시간표</h2>
+        {% for i in team_time_table.all %}
+        <p>{{ i.total_time_table }}</p>
+        <p>{{ i.user.pk }}</p>
+        <p>{{login_user.pk}}</p>
+        {% if  i.user.pk == login_user.pk %}
+        <a href="{% url 'team:delete_time_table' i.team.pk %}">시간표 삭제</a>
+        {% endif %}
+        {% endfor %}
+        
+        <p id="schedule"></p>
+        <br><br>
+        <a href="{% url 'team:add_member' details.pk %}">팀추가하기!</a>
+        <a href="{% url 'team:add_time_table' details.pk %}">팀에 시간표 추가</a>
+    
+    <script >
+    
+    </script>
+{% endblock %}

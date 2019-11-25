@@ -21,8 +21,7 @@ import main.views#메인앱의 views함수를 임포트 해줍니다.
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')), # 메인페이지 띄움
-    path('account/', include('account.urls')),
+    path('', include('account.urls')),
     path('mail/', include('mail.urls')),
     path('team/', include('team.urls')),
     path('team_article/', include('team_article.urls')),
